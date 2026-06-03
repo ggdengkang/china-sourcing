@@ -42,7 +42,7 @@
         </div>
         <div>
           <h4>{{ isEnglish ? 'WeChat Consultation' : '微信咨询' }}</h4>
-          <img src="../assets/wechat.jpg" class="qr-code" alt="WeChat QR Code"/>
+          <img src="/wechat.jpg" class="qr-code" alt="WeChat QR Code"/>
         </div>
       </div>
       <p>Professional China Sourcing Partner</p>

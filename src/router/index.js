@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import Home from '../pages/Home.vue'
 import Products from '../pages/Products.vue'
 import Services from '../pages/Services.vue'
@@ -14,29 +15,24 @@ import Fashion from '../pages/Fashion.vue'
 
 const routes = [
   { path: '/', component: Home },
-
   { path: '/products', component: Products },
   { path: '/services', component: Services },
   { path: '/contact', component: Contact },
-
   { path: '/household', component: Household },
   { path: '/kitchen', component: Kitchen },
   { path: '/hardware', component: Hardware },
   { path: '/gifts', component: Gifts },
-  {path:'/office', component:Office},
-{ path:'/sports', component:Sports},
-{ path:'/electronics', component:Electronics},
-{ path:'/fashion', component:Fashion}
+  { path: '/office', component: Office },
+  { path: '/sports', component: Sports },
+  { path: '/electronics', component: Electronics },
+  { path: '/fashion', component: Fashion }
 ]
-  
+
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
-  scrollBehavior(to, from, savedPosition) {
-    // 如果链接里有 hash，滚动到对应元素
-    if (to.hash) {
-      return { el: to.hash, behavior: 'smooth' }
-    }
+  scrollBehavior(to) {
+    if (to.hash) return { el: to.hash, behavior: 'smooth' }
     return { top: 0 }
   }
 })
