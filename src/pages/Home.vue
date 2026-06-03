@@ -109,7 +109,7 @@
         <div>
           <h4>微信咨询</h4>
           <h4>WeChat Consultation</h4>
-          <img src="/wechat.jpg" class="qr-code" alt="WeChat QR Code" style="width:140px;height:140px;object-fit:contain;">
+          <img :src="wechatQrCode" class="qr-code" alt="WeChat QR Code" style="width:140px;height:140px;object-fit:contain;">
         </div>
       </div>
       <p>Professional China Sourcing Partner</p>
@@ -128,7 +128,8 @@ export default {
   name: "Home",
   data() {
     return {
-      isEnglish: localStorage.getItem("lang") === "en"
+      isEnglish: localStorage.getItem("lang") === "en",
+      wechatQrCode: `${import.meta.env.BASE_URL}wechat.jpg`
     }
   },
   methods: {

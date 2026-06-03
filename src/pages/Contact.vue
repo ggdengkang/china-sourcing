@@ -42,7 +42,7 @@
         </div>
         <div>
           <h4>{{ isEnglish ? 'WeChat Consultation' : '微信咨询' }}</h4>
-          <img src="/wechat.jpg" class="qr-code" alt="WeChat QR Code"/>
+          <img :src="wechatQrCode" class="qr-code" alt="WeChat QR Code"/>
         </div>
       </div>
       <p>Professional China Sourcing Partner</p>
@@ -62,7 +62,8 @@ export default {
   name: "ContactPage",
   data() {
     return {
-      isEnglish: false
+      isEnglish: false,
+      wechatQrCode: `${import.meta.env.BASE_URL}wechat.jpg`
     };
   },
   methods: {
