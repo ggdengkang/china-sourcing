@@ -3,7 +3,7 @@
 
     <header class="header">
       <div class="logo">
-        Guangzhou Sourcing
+        China Guangzhou Purchasing Center
       </div>
 
       <nav>

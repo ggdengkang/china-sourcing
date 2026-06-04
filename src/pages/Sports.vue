@@ -1,126 +1,324 @@
 <template>
-  <div class="products-page">
-    <h2>{{ isEnglish ? 'Popular Auto Parts' : '热门汽车配件' }}</h2>
+  <div class="category-page">
 
-    <div class="product-grid">
-      <div
-        class="product-card"
-        v-for="item in categories"
-        :key="item.nameEn"
-      >
-        <img :src="item.img" :alt="isEnglish ? item.nameEn : item.nameZh" />
-        <h3>{{ isEnglish ? item.nameEn : item.nameZh }}</h3>
-        <p>{{ isEnglish ? item.descEn : item.descZh }}</p>
-        <p>{{ isEnglish ? `MOQ: ${item.moqEn}` : `起订量：${item.moqZh}` }}</p>
-        <p class="price">{{ isEnglish ? `FOB Price: ${item.price}` : `FOB参考价：${item.price}` }}</p>
+    <!-- 顶部导航 -->
+    <header class="header">
+      <div class="logo">Guangzhou Sourcing</div>
+      <nav>
+        <router-link to="/">{{ isEnglish ? 'Home' : '首页' }}</router-link>
+        <router-link to="/products">{{ isEnglish ? 'Products' : '产品中心' }}</router-link>
+        <router-link to="/services">{{ isEnglish ? 'Services' : '采购服务' }}</router-link>
+        <router-link to="/contact">{{ isEnglish ? 'Contact' : '联系我们' }}</router-link>
 
-        <div class="btn-group">
-          <button class="wa-btn" @click="openWhatsApp(item.nameEn)">
-            {{ isEnglish ? 'WhatsApp Inquiry' : 'WhatsApp询盘' }}
-          </button>
-        </div>
+        <a href="#" class="lang-btn" @click.prevent="toggleLanguage">
+          {{ isEnglish ? '中文' : 'EN' }}
+        </a>
+      </nav>
+    </header>
+
+    <!-- 页面标题 -->
+    <h1>{{ isEnglish ? 'Auto Parts' : '汽车配件' }}</h1>
+
+    <!-- 产品列表 -->
+    <div class="products-grid">
+      <div class="product-card" v-for="item in products" :key="item.name">
+        <img :src="item.img" :alt="item.name" />
+
+        <h3>{{ item.name }}</h3>
+
+        <p>
+          {{ isEnglish ? 'Price' : '价格' }}:
+          {{ item.price }}
+        </p>
+
+        <p>
+          {{ isEnglish ? 'MOQ' : '最小起订量' }}:
+          {{ item.moq }}
+        </p>
+
+        <button @click="openWhatsApp(item.name)">
+          WhatsApp询盘
+        </button>
       </div>
     </div>
+
+    <!-- 联系我们 -->
+    <section class="contact-wrapper">
+      <h2>{{ isEnglish ? 'Contact Us' : '联系我们' }}</h2>
+
+      <form
+        class="contact-form"
+        action="https://formspree.io/f/xlgvywll"
+        method="POST"
+      >
+        <input
+          type="text"
+          name="name"
+          placeholder="Your Name"
+          required
+        />
+
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          required
+        />
+
+        <input
+          type="text"
+          name="whatsapp"
+          placeholder="WhatsApp"
+        />
+
+        <textarea
+          name="message"
+          rows="5"
+          placeholder="Procurement Requirements"
+          required
+        ></textarea>
+
+        <button type="submit">
+          {{ isEnglish ? 'Submit Inquiry' : '提交需求' }}
+        </button>
+      </form>
+    </section>
+
   </div>
 </template>
 
 <script>
 export default {
   name: "Sports",
+
   data() {
     return {
       isEnglish: localStorage.getItem("lang") === "en",
-      categories: [
-        { nameEn:'Brake Pads', nameZh:'刹车片', descEn:'High Quality Brake Pads', descZh:'高品质刹车片', moqEn:'100pcs', moqZh:'100件', price:'$2.50', link:'/brake-pads', img:'https://images.unsplash.com/photo-1486006920555-c77dcf18193c?w=600' },
-        { nameEn:'Air Filter', nameZh:'空气滤芯', descEn:'Engine Air Filter', descZh:'发动机空气滤芯', moqEn:'200pcs', moqZh:'200件', price:'$1.80', link:'/air-filter', img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=600' },
-        { nameEn:'Oil Filter', nameZh:'机油滤芯', descEn:'Oil Filtration System', descZh:'机油过滤系统', moqEn:'300pcs', moqZh:'300件', price:'$2.20', link:'/oil-filter', img:'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=600' },
-        { nameEn:'LED Headlight', nameZh:'LED车灯', descEn:'Bright LED Headlights', descZh:'高亮LED车灯', moqEn:'100pcs', moqZh:'100件', price:'$8.50', link:'/headlight', img:'https://images.unsplash.com/photo-1502877338535-766e1452684a?w=600' },
-        { nameEn:'Car Battery', nameZh:'汽车电池', descEn:'Maintenance Free Battery', descZh:'免维护汽车电池', moqEn:'50pcs', moqZh:'50件', price:'$28.00', link:'/battery', img:'https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=600' },
-        { nameEn:'Spark Plug', nameZh:'火花塞', descEn:'Premium Spark Plug', descZh:'优质火花塞', moqEn:'200pcs', moqZh:'200件', price:'$1.20', link:'/spark-plug', img:'https://images.unsplash.com/photo-1503736334956-4c8f8e92946d?w=600' },
-        { nameEn:'Shock Absorber', nameZh:'减震器', descEn:'Hydraulic Shock Absorber', descZh:'液压减震器', moqEn:'100pcs', moqZh:'100件', price:'$12.00', link:'/shock-absorber', img:'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600' },
-        { nameEn:'Radiator', nameZh:'散热器', descEn:'Aluminum Radiator', descZh:'铝制散热器', moqEn:'50pcs', moqZh:'50件', price:'$25.00', link:'/radiator', img:'https://images.unsplash.com/photo-1542362567-b07e54358753?w=600' },
-        { nameEn:'Wheel Bearing', nameZh:'轮毂轴承', descEn:'Wheel Hub Bearing', descZh:'汽车轮毂轴承', moqEn:'200pcs', moqZh:'200件', price:'$4.80', link:'/wheel-bearing', img:'https://images.unsplash.com/photo-1504215680853-026ed2a45def?w=600' },
-        { nameEn:'Fuel Pump', nameZh:'燃油泵', descEn:'Electric Fuel Pump', descZh:'汽车燃油泵', moqEn:'100pcs', moqZh:'100件', price:'$9.50', link:'/fuel-pump', img:'https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600' }
+
+      products: [
+        {
+          name: "Car brake pads",
+          img: `${import.meta.env.BASE_URL}sports/1.jpg`,
+          price: "$50-$300",
+          moq: "10pcs"
+        },
+        {
+          name: "Air filter element",
+          img: `${import.meta.env.BASE_URL}sports/2.jpg`,
+          price: "50-$300",
+          moq: "10pcs"
+        },
+        {
+          name: "Oil filter element",
+          img: `${import.meta.env.BASE_URL}sports/3.jpg`,
+          price: "50-$300",
+          moq: "10pcs"
+        },
+        {
+          name: "LED car lights",
+          img: `${import.meta.env.BASE_URL}sports/4.jpg`,
+          price: "50-$300",
+          moq: "10pcs"
+        },
+        {
+          name: "Car  battery",
+          img: `${import.meta.env.BASE_URL}sports/5.jpg`,
+          price: "50-$300",
+          moq: "10pcs"
+        },
+        {
+          name: "Spark plug",
+          img: `${import.meta.env.BASE_URL}sports/6.jpg`,
+          price: "50-$300",
+          moq: "10pcs"
+        },
+        {
+          name: "Car shock absorber",
+          img: `${import.meta.env.BASE_URL}sports/7.jpg`,
+          price: "50-$300",
+          moq: "10pcs"
+        },
+        {
+          name: "Automobile bearings",
+          img: `${import.meta.env.BASE_URL}sports/8.jpg`,
+          price: "100-$300",
+          moq: "10pcs"
+        }
       ]
     }
   },
+
   methods: {
-    openWhatsApp(productName){
-      const msg = encodeURIComponent(`Hello, I am interested in ${productName}. Please send me quotation.`);
-      window.open(`https://wa.me/8613247682294?text=${msg}`, '_blank');
+    openWhatsApp(productName) {
+      const msg = encodeURIComponent(
+        `Hello, I am interested in ${productName}. Please send me quotation.`
+      )
+
+      window.open(
+        `https://wa.me/8618588574864?text=${msg}`,
+        "_blank"
+      )
+    },
+
+    toggleLanguage() {
+      this.isEnglish = !this.isEnglish
+      localStorage.setItem(
+        "lang",
+        this.isEnglish ? "en" : "zh"
+      )
     }
   }
 }
 </script>
 
 <style scoped>
-.products-page{
-  padding:80px 20px;
-  background:#fff;
+.header{
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  height:80px;
+  background:#000;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 50px;
+  z-index:999;
 }
-.products-page h2{
+
+.logo{
+  color:#f8c948;
+  font-size:32px;
+  font-weight:bold;
+}
+
+.header nav a{
+  color:#f8c948;
+  text-decoration:none;
+  margin-left:30px;
+  font-size:18px;
+}
+
+.lang-btn{
+  color:#f8c948;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.lang-btn:hover{
+  color:#fff;
+}
+
+.category-page{
+  padding:150px 50px 50px;
   text-align:center;
-  font-size:38px;
-  margin-bottom:50px;
-  font-weight:700;
 }
-.product-grid{
-  max-width:1600px;
-  margin:auto;
+
+.products-grid{
   display:grid;
-  grid-template-columns:repeat(5,1fr);
+  grid-template-columns:repeat(4,1fr);
   gap:25px;
+  max-width:1200px;
+  margin:auto;
 }
+
 .product-card{
   border:1px solid #eee;
+  padding:20px;
   background:#fff;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  height:380px;
   transition:.3s;
-  text-align:center;
-  overflow:hidden;
 }
+
 .product-card:hover{
-  transform:translateY(-8px);
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
+  transform:translateY(-5px);
+  box-shadow:0 8px 20px rgba(0,0,0,.1);
 }
+
 .product-card img{
   width:100%;
-  height:220px;
+  height:180px;
   object-fit:cover;
-}
-.product-card h3{
-  margin-top:18px;
-  font-size:22px;
-}
-.product-card p{
-  padding:0 15px;
-  line-height:1.8;
-}
-.price{
-  font-weight:bold;
   margin-bottom:10px;
 }
-.btn-group{
-  padding:20px;
+
+.product-card h3{
+  font-size:18px;
+  font-weight:bold;
 }
-.wa-btn{
-  width:100%;
+
+.product-card button{
+  margin-top:auto;
   background:#25D366;
   color:#fff;
   border:none;
-  padding:14px;
-  border-radius:6px;
-  font-weight:bold;
+  border-radius:5px;
+  padding:10px;
   cursor:pointer;
-  font-size:15px;
 }
-.wa-btn:hover{
-  opacity:.9;
+
+.contact-wrapper{
+  padding:80px 20px;
 }
-@media(max-width:1200px){
-  .product-grid{grid-template-columns:repeat(3,1fr);}
+
+.contact-form{
+  max-width:600px;
+  margin:auto;
+  display:flex;
+  flex-direction:column;
+  gap:15px;
 }
+
+.contact-form input,
+.contact-form textarea{
+  width:100%;
+  padding:15px;
+  border:1px solid #ddd;
+  border-radius:8px;
+}
+
+.contact-form button{
+  background:#f8c948;
+  border:none;
+  padding:15px;
+  cursor:pointer;
+  border-radius:8px;
+}
+
+@media(max-width:1024px){
+  .products-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
 @media(max-width:768px){
-  .product-grid{grid-template-columns:repeat(2,1fr);}
-  .product-card img{height:160px;}
+  .header{
+    flex-direction:column;
+    height:auto;
+    padding:15px;
+  }
+
+  .logo{
+    font-size:24px;
+    margin-bottom:10px;
+  }
+
+  .header nav{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+  }
+
+  .header nav a{
+    margin:5px 10px;
+    font-size:14px;
+  }
+
+  .products-grid{
+    grid-template-columns:1fr;
+  }
 }
-</style>    
+</style>

@@ -3,7 +3,7 @@
 
     <!-- 顶部导航 -->
     <header class="header">
-      <div class="logo">Guangzhou Sourcing</div>
+      <div class="logo">China Guangzhou Purchasing Center</div>
       <nav>
         <router-link to="/">{{ isEnglish ? 'Home' : '首页' }}</router-link>
         <router-link to="/products">{{ isEnglish ? 'Products' : '产品中心' }}</router-link>
@@ -38,7 +38,8 @@
       <div class="footer-contact">
         <div>
           <h4>WhatsApp</h4>
-          <p>+86 13800138000</p>
+          <p>+8613247682294</p>
+          <p>+8618588574864</p>
         </div>
         <div>
           <h4>{{ isEnglish ? 'WeChat Consultation' : '微信咨询' }}</h4>
@@ -71,7 +72,7 @@ export default {
       this.isEnglish = !this.isEnglish;
     },
     openWhatsApp() {
-      window.open("https://wa.me/8613247682294", "_blank");
+      window.open("https://wa.me/8618588574864", "_blank");
     }
   }
 };

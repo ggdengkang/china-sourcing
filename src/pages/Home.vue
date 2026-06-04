@@ -3,7 +3,7 @@
 
     <!-- 顶部导航 -->
     <header class="header">
-      <div class="logo">Guangzhou Sourcing</div>
+      <div class="logo">China Guangzhou Purchasing Center</div>
 
       <nav>
         <router-link to="/">{{ isEnglish ? 'Home' : '首页' }}</router-link>
@@ -18,10 +18,16 @@
     </header>
 
     <!-- Banner -->
-    <section class="hero" id="home">
+  <section
+  class="hero"
+  id="home"
+  :style="{
+    backgroundImage: `linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)), url(${bannerImage})`
+  }"
+>
       <div class="hero-content">
-        <h2>{{ isEnglish ? 'One-stop China General Merchandise Sourcing' : '广州采购服务中心' }}</h2>
-        <p>广州采购服务中心 · 全球发货 · 品质保障</p>
+        <h2>{{ isEnglish ? 'One-stop China General Merchandise Sourcing' : '中国•广州采购服务中心' }}</h2>
+        <p>中国•广州一般商品采购 · 全球发货 · 品质保障</p>
         <div class="btns">
           <button @click="scrollToContact">{{ isEnglish ? 'Get Quote' : '立即咨询' }}</button>
           <button class="whatsapp-btn" @click="openWhatsApp">WhatsApp</button>
@@ -34,42 +40,42 @@
       <h2>{{ isEnglish ? 'Popular Product Categories' : '热门百货品类' }}</h2>
       <div class="product-grid">
         <div class="product-card" @click="$router.push('/household')">
-          <img src="https://images.pexels.com/photos/5824883/pexels-photo-5824883.jpeg" />
+          <img :src="householdImg" />
           <h3>{{ isEnglish ? 'Household Products' : '日用家居' }}</h3>
         </div>
 
         <div class="product-card" @click="$router.push('/kitchen')">
-          <img src="https://images.pexels.com/photos/965989/pexels-photo-965989.jpeg" />
+          <img :src="kitchenImg" />
           <h3>{{ isEnglish ? 'Kitchenware' : '厨卫用品' }}</h3>
         </div>
 
         <div class="product-card" @click="$router.push('/hardware')">
-          <img src="https://images.pexels.com/photos/209235/pexels-photo-209235.jpeg" />
+          <img :src="hardwareImg" />
           <h3>{{ isEnglish ? 'Hardware Tools' : '五金百货' }}</h3>
         </div>
 
         <div class="product-card" @click="$router.push('/gifts')">
-          <img src="https://images.pexels.com/photos/356056/pexels-photo-356056.jpeg" />
+          <img :src="giftsImg" />
           <h3>{{ isEnglish ? 'Gifts & Decorations' : '礼品饰品' }}</h3>
         </div>
 
         <div class="product-card" @click="$router.push('/office')">
-          <img src="https://images.pexels.com/photos/374074/pexels-photo-374074.jpeg" />
-          <h3>{{ isEnglish ? 'Office Supplies' : '化妆用品' }}</h3>
+          <img :src="officeImg" />
+          <h3>{{ isEnglish ? 'Perfume Makeup' : '香水化妆' }}</h3>
         </div>
 
         <div class="product-card" @click="$router.push('/sports')">
-          <img src="https://images.pexels.com/photos/1619311/pexels-photo-1619311.jpeg" />
-          <h3>{{ isEnglish ? 'Sports & Outdoors' : '汽车配件' }}</h3>
+          <img :src="sportsImg" />
+          <h3>{{ isEnglish ? 'Auto parts' : '汽车配件' }}</h3>
         </div>
 
         <div class="product-card" @click="$router.push('/electronics')">
-          <img src="https://images.pexels.com/photos/1103536/pexels-photo-1103536.jpeg" />
+          <img :src="electronicsImg" />
           <h3>{{ isEnglish ? 'Electronics' : '电子产品' }}</h3>
         </div>
 
         <div class="product-card" @click="$router.push('/fashion')">
-          <img src="https://images.pexels.com/photos/298863/pexels-photo-298863.jpeg" />
+          <img :src="fashionImg" />
           <h3>{{ isEnglish ? 'Fashion & Accessories' : '时尚配饰' }}</h3>
         </div>
       </div>
@@ -104,7 +110,8 @@
       <div class="footer-contact">
         <div>
           <h4>WhatsApp</h4>
-          <p>+86 13800138000</p>
+          <p>+8613247682294</p>
+          <p>+8618588574864</p>
         </div>
         <div>
           <h4>微信咨询</h4>
@@ -129,7 +136,16 @@ export default {
   data() {
     return {
       isEnglish: localStorage.getItem("lang") === "en",
-      wechatQrCode: `${import.meta.env.BASE_URL}wechat.jpg`
+     wechatQrCode: `${import.meta.env.BASE_URL}wechat.jpg`,
+    bannerImage: `${import.meta.env.BASE_URL}banner.jpg`,
+    householdImg: `${import.meta.env.BASE_URL}household.jpg`,
+    kitchenImg: `${import.meta.env.BASE_URL}kitchen.jpg`,
+    hardwareImg: `${import.meta.env.BASE_URL}hardware.jpg`,
+    giftsImg: `${import.meta.env.BASE_URL}gifts.jpg`,
+    officeImg: `${import.meta.env.BASE_URL}office.jpg`,
+    sportsImg: `${import.meta.env.BASE_URL}sports.jpg`,
+    electronicsImg: `${import.meta.env.BASE_URL}electronics.jpg`,
+    fashionImg: `${import.meta.env.BASE_URL}fashion.jpg`
     }
   },
   methods: {
@@ -142,7 +158,7 @@ export default {
       if (contact) contact.scrollIntoView({ behavior: "smooth" })
     },
     openWhatsApp() {
-      window.open("https://wa.me/8613247682294", "_blank")
+      window.open("https://wa.me/8618588574864", "_blank")
     }
   }
 }
@@ -158,7 +174,17 @@ html{scroll-behavior:smooth;}
 .header nav a{color:#f8c948;text-decoration:none;margin-left:30px;font-size:18px;}
 .lang-btn{color:#f8c948;font-weight:bold;cursor:pointer;}
 .lang-btn:hover{color:#fff;}
-.hero{height:600px;background:linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),url("https://images.pexels.com/photos/4481325/pexels-photo-4481325.jpeg");background-size:cover;background-position:center;display:flex;justify-content:center;align-items:center;text-align:center;padding-top:80px;}
+.hero{
+  height:600px;
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  padding-top:80px;
+}
 .hero-content{color:white;}
 .hero h1{font-size:54px;margin-bottom:20px;}
 .hero h2{color:#f8c948;margin-bottom:20px;}
